@@ -13,13 +13,13 @@ use std::slice::from_raw_parts;
 #[derive(Clone, Debug, Default)]
 #[repr(C)]
 struct AbiStat {
-    dev: u64,
+    dev: i32,
     ino: u64,
     mode: u32,
     nlink: i32,
     uid: u32,
     gid: u32,
-    rdev: u64,
+    rdev: i32,
     __pad1: u64,
     size: i64,
     blksize: i32,
@@ -74,7 +74,7 @@ impl Stdio {
         let mut abi_stat = AbiStat::default();
         abi_stat.dev = stat.st_dev;
         abi_stat.ino = stat.st_ino;
-        abi_stat.mode = stat.st_mode;
+        abi_stat.mode = stat.st_mode as u32;
         abi_stat.nlink = stat.st_nlink as i32;
         abi_stat.uid = stat.st_uid;
         abi_stat.gid = stat.st_gid;
